@@ -9,12 +9,24 @@ const database = require('Database');
 const spiderUrl = config.spiderUrl || {};
 const spiderConfig = config.spiderConfig || {};
 
+/**
+ * 处理数据, 去除\n等字符
+ * @param {string} data 
+ */
 function resolveData(data = '') {
   return data.replace(/(\n)|(\t)/g, '').trim();
 }
+/**
+ * 将千位格式转化为number格式
+ * @param {number} num 
+ */
 function resolveNumber(num = '') {
   return num.split(',').join('');
 }
+/**
+ * 处理content
+ * @param {string} content 
+ */
 function resolveContent(content) {
   const arr = content.split('/');
   return {
@@ -22,10 +34,19 @@ function resolveContent(content) {
     project: resolveData(arr[1])
   };
 }
+/**
+ * 处理todayStar
+ * @param {string} todayStar 
+ */
 function resolveTodayStar(todayStar) {
   const target = todayStar.match(/[0-9]/g).join('');
   return target ? Number(target) : target;
 }
+/**
+ * 提取footer信息
+ * @param {jquery} $ 
+ * @param {jqueryElement} footer 
+ */
 function getFooterInformation($, footer) {
   const result = {
     todayStar: '0',
@@ -85,6 +106,10 @@ class GithubSpider {
       console.log(result);
     });
   }
+  /**
+   * 获取排行榜页面信息
+   * @param {URL} url 
+   */
   async getInformations(url) {
     const result = [];
     const html = await http.get(url.href, {
@@ -102,6 +127,7 @@ class GithubSpider {
       const content = resolveData(item.find('.lh-condensed a').text());
       const {project, author} = resolveContent(content);
       result.push({
+        top: Number(i + 1),
         project,
         author,
         description,
@@ -112,6 +138,10 @@ class GithubSpider {
     });
     return result;
   }
+  /**
+   * 获取排行榜
+   * @param {date} date 
+   */
   async getTrending(date) {
     const informations = await this.getInformations(this.trendingUrl);
     const trendingList  = informations.map(information => {
@@ -119,8 +149,15 @@ class GithubSpider {
       information.date = date;
       return information;
     });
-    const fields = ['project', 'author', 'star', 'fork', 'date', 'type'];
+    const fields = ['project', 'author', 'star', 'fork', 'date', 'type', 'top'];
     this.insertData(fields, trendingList);
+  }
+  /**
+   * 开始爬取
+   * @param {date} date 
+   */
+  start(date) {
+    this.getTrending(date);
   }
 }
 

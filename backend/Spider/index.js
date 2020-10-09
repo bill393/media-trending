@@ -7,6 +7,7 @@ const BaiduSpider = require('./baidu');
 const ZhihuSpider = require('./zhihu');
 const GithubSpider = require('./github');
 const DoubanSpider = require('./douban');
+const BilibiliSpider = require('./bilibili');
 const CronJob = require('cron').CronJob;
 const config = require('config');
 const spiderConfig = config.spiderConfig;
@@ -18,14 +19,16 @@ class Spider {
     const zhihuSpider = new ZhihuSpider();
     const githubSpider = new GithubSpider();
     const doubanSpider = new DoubanSpider();
+    const bilibiliSpider = new BilibiliSpider();
+
     this.job = new CronJob(spiderConfig.time, () => {
       const date = new Date();
-      weiboSpider.getRealtimeHot(date);
-      weiboSpider.getSocialEvent(date);
-      baiduSpider.getRealtimeHot(date);
-      zhihuSpider.getRealtimeHot(date);
-      githubSpider.getTrending(date);
-      doubanSpider.getRealtimeHot(date);
+      weiboSpider.start(date);
+      baiduSpider.start(date)
+      zhihuSpider.start(date);
+      githubSpider.start(date);
+      doubanSpider.start(date);
+      bilibiliSpider.start(date);
     });
   }
   start() {

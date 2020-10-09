@@ -44,7 +44,7 @@ class WeiboSpider {
   }
   /**
    * 根据url获取网页信息
-   * @param {string} url 链接
+   * @param {URL} url 链接
    */
   async getInformations(url) {
     const result = [];
@@ -121,6 +121,14 @@ class WeiboSpider {
 
     const fields = ['content', 'url', 'type', 'date'];
     this.insertData(fields, socialEventList);
+  }
+  /**
+   * 开始爬取
+   * @param {date} date 
+   */
+  start(date) {
+    this.getRealtimeHot(date);
+    this.getSocialEvent(date);
   }
 }
 

@@ -2,7 +2,7 @@
  * @file 知乎爬虫
  */
 
-const http = require('Http/index');
+const http = require('Http');
 const config = require('config');
 const database = require('Database');
 const spiderUrl = config.spiderUrl || {};
@@ -39,6 +39,10 @@ class ZhihuSpider {
       console.log(result);
     });
   }
+  /**
+   * 获取热搜榜
+   * @param {date} date 
+   */
   async getRealtimeHot(date) {
     const realtimeHotList = [];
     const result = await http.get(this.realtimeHotUrl);
@@ -57,6 +61,13 @@ class ZhihuSpider {
     });
     const fields = ['top', 'content', 'followCount', 'url', 'answerCount', 'type', 'date'];
     this.insertData(fields, realtimeHotList);
+  }
+  /**
+   * 开始爬取
+   * @param {date} date 
+   */
+  start(date) {
+    this.getRealtimeHot(date);
   }
 };
 
