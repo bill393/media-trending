@@ -1,0 +1,45 @@
+{
+  "versions": ["v1"],
+  "port": 8080,
+  "prefix": "/api",
+  "spiderConfig": {
+    "time": "0 0 12 * * *",
+    "devices": {
+      "computer": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36",
+      "phone": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"
+    }
+  },
+  "spiderUrl": {
+    "weibo": {
+      "实时热搜": "https://s.weibo.com/top/summary?cate=realtimehot",
+      "要闻": "https://s.weibo.com/top/summary?cate=socialevent"
+    },
+    "baidu": {
+      "实时热点": "http://top.baidu.com/buzz?b=1&fr=topbuzz_b341",
+      "贴吧榜": "http://tieba.baidu.com/sign/index?kw=yhzt&type=0&pn=1",
+      "贴吧话题榜": "http://tieba.baidu.com/hottopic/browse/topicList?res_type=1&red_tag=y0340654363"
+    },
+    "zhihu": {
+      "热榜": "https://www.zhihu.com/api/v3/feed/topstory/hot-lists/total?limit=50&desktop=true"
+    },
+    "github": {
+      "trending": "https://github.com/trending?spoken_language_code="
+    },
+    "douban": {
+      "热映榜": "https://movie.douban.com/cinema/nowplaying/shenzhen/",
+      "热门话题": "https://www.douban.com/gallery/"
+    },
+    "bilibili": {
+      "全站榜": "https://www.bilibili.com/ranking/all/0/0/1",
+      "新番榜": "https://www.bilibili.com/ranking/bangumi/13/0/3",
+      "影视榜": "https://www.bilibili.com/ranking/cinema/177/0/3"
+    }
+  },
+  "database": {
+    "host": "127.0.0.1",
+    "port": 3306,
+    "database": "MediaTrending",
+    "user": "root",
+    "password": "*******"
+  }
+}
