@@ -136,10 +136,12 @@ class BilibiliSpider {
    * 开始爬取
    * @param {date} date 时间
    */
-  start() {
-    this.getRanking(date);
-    this.getAnimeRanking(date);
-    this.getMovieRanking(date);
+  start(date) {
+    return Promise.allSettled([
+      this.getRanking(date),
+      this.getAnimeRanking(date),
+      this.getMovieRanking(date)
+    ]);
   }
 }
 

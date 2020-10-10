@@ -67,7 +67,7 @@ class ZhihuSpider {
    * @param {date} date 
    */
   start(date) {
-    this.getRealtimeHot(date);
+    return Promise.allSettled([this.getRealtimeHot(date)]);
   }
 };
 

@@ -127,8 +127,10 @@ class WeiboSpider {
    * @param {date} date 
    */
   start(date) {
-    this.getRealtimeHot(date);
-    this.getSocialEvent(date);
+    return Promise.allSettled([
+      this.getRealtimeHot(date),
+      this.getSocialEvent(date)
+    ]);
   }
 }
 

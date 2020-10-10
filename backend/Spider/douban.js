@@ -148,8 +148,10 @@ class DoubanSpider {
    * @param {date} date 时间
    */
   async start(date) {
-    this.getDoubanTopic(date);
-    this.getDoubanMovieNowPlaying(date);
+    return Promise.allSettled([
+      this.getDoubanTopic(date),
+      this.getDoubanMovieNowPlaying(date)
+    ]);
   }
 }
 

@@ -203,8 +203,10 @@ class BaiduSpider {
    * @param {date} date 日期
    */
   start(date) {
-    this.getRealtimeHot(date);
-    this.getTiebaTopic(date);
+    return Promise.allSettled([
+      this.getRealtimeHot(date),
+      this.getTiebaTopic(date)
+    ]);
   }
 }
 

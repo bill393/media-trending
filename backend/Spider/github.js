@@ -91,9 +91,6 @@ class GithubSpider {
             result.push(null);
           }
           else {
-            if (field === 'description') {
-              console.log(item[field]);
-            }
             result.push(item[field]);
           }
         }
@@ -149,7 +146,7 @@ class GithubSpider {
       information.date = date;
       return information;
     });
-    const fields = ['project', 'author', 'star', 'fork', 'date', 'type', 'top'];
+    const fields = ['project', 'author', 'description', 'star', 'fork', 'date', 'type', 'top'];
     this.insertData(fields, trendingList);
   }
   /**
@@ -157,7 +154,7 @@ class GithubSpider {
    * @param {date} date 
    */
   start(date) {
-    this.getTrending(date);
+    return Promise.allSettled([this.getTrending(date)]);
   }
 }
 
