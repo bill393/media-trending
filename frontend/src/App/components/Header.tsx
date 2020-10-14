@@ -2,25 +2,33 @@
  * @file 顶部栏
  */
 
-import React, {useCallback} from 'react';
+import React, {useCallback, useContext} from 'react';
 import {Input} from 'antd';
 import {useInputValue} from '@/hooks';
+import themeContext, {ThemeContext} from '@/components/Theme/theme';
 import './index.less';
 
 const Header: React.FC = () => {
   const [searchText, onChange] = useInputValue();
+  const {theme} = useContext<ThemeContext>(themeContext);
   const onSearch = useCallback((value: string) => {
     console.log(value);
   }, []);
 
   return (
-    <nav className="nav">
-      <div className="nav-logo">MEDIA TRENDING</div>
+    <nav style={theme} className="nav">
+      <div className="nav-logo">
+        <span className="nav-logo-first">T</span>
+        <span>rending</span>
+        <span className="nav-logo-desc">世界尽收眼底</span>
+      </div>
       <div className="nav-body">
-        <Input.Search className="search-input" value={searchText} onChange={onChange} onSearch={onSearch}></Input.Search>
+        <div className="nav-body-container">
+          <Input.Search className="search-input" value={searchText} size="large" onChange={onChange} onSearch={onSearch}></Input.Search>
+        </div>
       </div>
     </nav>
   );
 };
 
-export default Header;
+export default React.memo(Header);

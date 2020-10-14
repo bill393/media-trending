@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {BrowserRouter} from 'react-router-dom';
+import Theme from '@/components/Theme';
 import store from '@/store';
 import App from '@/App';
 import * as serviceWorker from './serviceWorker';
@@ -10,7 +11,9 @@ import '@/assets/css/main.less';
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
-      <App title="ss"></App>
+      <Theme>
+        <App></App>
+      </Theme>
     </Provider>
   </BrowserRouter>,
   document.getElementById('root')
