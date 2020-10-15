@@ -2,39 +2,53 @@
  * @file 顶部栏
  */
 
-import React, {useState, useCallback, useContext, useEffect} from 'react';
+import React, {useCallback, useContext, useEffect} from 'react';
 import {Input} from 'antd';
 import {useInputValue} from '@/hooks';
 import {getScrollTop} from '@/utils';
+import {NavStyle} from '../index';
 import themeContext, {ThemeContext} from '@/components/Theme/theme';
 import './index.less';
 
-const Header: React.FC = () => {
-  const [navClass, setNavClass] = useState<string>('nav');
+export type HeaderProps = {
+  navStyle: NavStyle,
+  changeNavStyle: Function
+};
+
+const Header: React.FC<HeaderProps> = ({navStyle, changeNavStyle}) => {
   const [searchText, onChange] = useInputValue();
   const {theme} = useContext<ThemeContext>(themeContext);
+  const navClass = navStyle === 'default' ? 'nav' : 'nav-small';
   const onSearch = useCallback((value: string) => {
     console.log(value);
   }, []);
 
   useEffect(() => {
-    const scrollEvent = (): void => {
+    let lock: boolean = false;
+    const onScrollInnerEvent = (): void => {
       const scrollTop: number = getScrollTop();
-      if (scrollTop >= 150 && navClass === 'nav') {
-        setNavClass('nav-small');
+      if (
+        (scrollTop >= 50 && navClass === 'nav')
+          || (scrollTop <= 0 && navClass === 'nav-small')
+      ) {
+        changeNavStyle();
       }
-      else if (scrollTop < 100 && navClass === 'nav-small') {
-        setNavClass('nav');
+      lock = false;
+    };
+    const onScrollEvent = (): void => {
+      if (!lock) {
+        window.requestAnimationFrame(onScrollInnerEvent);
+        lock = true;
       }
     };
-    window.addEventListener('scroll', scrollEvent);
+    window.addEventListener('scroll', onScrollEvent);
     return () => {
-      window.removeEventListener('scroll', scrollEvent);
+      window.removeEventListener('scroll', onScrollEvent);
     };
-  }, [navClass, setNavClass]);
+  }, [navClass, changeNavStyle]);
 
   return (
-    <nav style={theme} className={navClass}>
+    <nav style={theme} className={`nav-default ${navClass}`}>
       <div className="nav-logo">
         <span className="nav-logo-first">T</span>
         <span>rending</span>
