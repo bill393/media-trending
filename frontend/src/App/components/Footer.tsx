@@ -10,7 +10,6 @@ const links = [
 
 const Footer: React.FC = () => {
   const {theme} = useContext<ThemeContext>(themeContext);
-  console.log('theme');
   return (
     <div style={theme} className="footer">
       <div style={theme} className="footer-links-wrap">
