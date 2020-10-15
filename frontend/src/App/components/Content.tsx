@@ -3,9 +3,11 @@
  */
 
 import React from 'react';
-import {Divider} from 'antd';
+import {Switch, Route} from 'react-router-dom'
 import {NavStyle} from '../index';
 import './index.less';
+
+const Home = React.lazy(() => import('@/pages/Home'));
 
 export type ContentProps = {
   navStyle: NavStyle
@@ -14,7 +16,11 @@ export type ContentProps = {
 const Content: React.FC<ContentProps> = ({navStyle}) => {
   return (
     <div className={`content${navStyle === 'mini' ? ' content-small' : ''}`}>
-      <Divider className="content-divider" plain>各大媒体平台热搜榜</Divider>
+      <React.Suspense fallback={<div>loading</div>}>
+        <Switch>
+          <Route path="/home" component={Home}></Route>
+        </Switch>
+      </React.Suspense>
     </div>
   );
 };
