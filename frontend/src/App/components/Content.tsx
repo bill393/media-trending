@@ -3,11 +3,12 @@
  */
 
 import React from 'react';
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, Redirect} from 'react-router-dom';
+import LazyLoad, {SuspenseLoading} from '@/components/LazyLoad';
 import {NavStyle} from '../index';
 import './index.less';
 
-const Home = React.lazy(() => import('@/pages/Home'));
+const Home = LazyLoad(() => import('@/pages/Home'));
 
 export type ContentProps = {
   navStyle: NavStyle
@@ -16,11 +17,12 @@ export type ContentProps = {
 const Content: React.FC<ContentProps> = ({navStyle}) => {
   return (
     <div className={`content${navStyle === 'mini' ? ' content-small' : ''}`}>
-      <React.Suspense fallback={<div>loading</div>}>
+      <SuspenseLoading size="large">
+        <Redirect from="/" to="/home"></Redirect>
         <Switch>
           <Route path="/home" component={Home}></Route>
         </Switch>
-      </React.Suspense>
+      </SuspenseLoading>
     </div>
   );
 };
