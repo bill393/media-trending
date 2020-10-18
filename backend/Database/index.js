@@ -10,7 +10,8 @@ const connection = mysql.createConnection({
   database: databaseConfig.database,
   user: databaseConfig.user,
   password: databaseConfig.password,
-  charset: 'utf8mb4'
+  charset: 'utf8mb4',
+  multipleStatements: true
 });
 connection.connect(err => {
   if (err) {
