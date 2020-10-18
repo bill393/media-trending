@@ -205,7 +205,8 @@ class BaiduSpider {
   start(date) {
     return Promise.allSettled([
       this.getRealtimeHot(date),
-      this.getTiebaTopic(date)
+      this.getTiebaTopic(date),
+      this.getTiebaRanking(date)
     ]);
   }
 }
