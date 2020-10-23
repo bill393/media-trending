@@ -8,6 +8,7 @@ import {useInputValue} from '@/hooks';
 import {getScrollTop} from '@/utils';
 import {NavStyle} from '../index';
 import themeContext, {ThemeContext} from '@/components/Theme/theme';
+import {Star} from '@/components/Eggs';
 import './index.less';
 
 export type HeaderProps = {
@@ -15,10 +16,17 @@ export type HeaderProps = {
   changeNavStyle: Function
 };
 
+const stars = [
+  {top: 80, left: 182},
+  {top: 50, left: 430},
+  {top: 150, left: 70}
+];
+
 const Header: React.FC<HeaderProps> = ({navStyle, changeNavStyle}) => {
   const [searchText, onChange] = useInputValue();
   const {theme} = useContext<ThemeContext>(themeContext);
-  const navClass = navStyle === 'default' ? 'nav' : 'nav-small';
+  const isDefaultNavStyle = navStyle === 'default';
+  const navClass = isDefaultNavStyle ? 'nav' : 'nav-small';
   const onSearch = useCallback((value: string) => {
     console.log(value);
   }, []);
@@ -53,6 +61,11 @@ const Header: React.FC<HeaderProps> = ({navStyle, changeNavStyle}) => {
         <span className="nav-logo-first">T</span>
         <span>rending</span>
         <span className="nav-logo-desc">世界尽收眼底</span>
+        {
+          isDefaultNavStyle && (
+            stars.map(starProps => <Star defaultValue unblinkColor={theme.backgroundColor} blinkColor={theme.color} {...starProps}></Star>)
+          )
+        }
       </div>
       <div className="nav-body">
         <div className="nav-body-container">

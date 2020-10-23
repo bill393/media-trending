@@ -1,0 +1,22 @@
+.star {
+  display: flex;
+  position: absolute;
+  cursor: pointer;
+  .star-fragment {
+    width: 0;
+    height: 0;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    transition: all 1s;
+  }
+  .star-fragment-left {
+    border-right-width: 7px;
+    border-right-style: solid;
+    border-left: none;
+  }
+  .star-fragment-right {
+    border-left-width: 7px;
+    border-left-style: solid;
+    border-right: none;
+  }
+}
