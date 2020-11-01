@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
 import themeContext, {ThemeContext} from '@/components/Theme/theme';
+import Outlink from '@/components/Outlink';
 import './index.less';
 
 const links = [
@@ -20,7 +21,7 @@ const Footer: React.FC = () => {
               return (
                 <li className="footer-link-wrap" key={link.value}>
                   <span>{link.label}: </span>
-                  <a style={theme} href={link.value} target="_blank" rel="noopener noreferrer">{link.value}</a>
+                  <Outlink style={theme} href={link.value}>{link.value}</Outlink>
                 </li>
               );
             })
