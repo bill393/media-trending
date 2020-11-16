@@ -44,20 +44,20 @@ router.get('/websites/ranking', (req, res) => {
     const websites = result[1] || [];
     const startTime = moment().format(dateFormat);
     const endTime = moment(startTime).subtract(-1, 'day').format(dateFormat);
-    const typeSql = websites.map(website => `select * from Type where websiteId = ${website.id};`);
     const getRankings = (website, types) => new Promise((res, rej) => {
       if (types.length === 0) {
         res([]);
       }
-      const sql = types.map(type => `select * from ${website} where type = '${type.type}' and date_format(date, '%Y-%m-%d') between '${startTime}' and '${endTime}' limit 10;`);
+      const sql = types.map(item => `select * from ${website} where type = '${item.type}' and date_format(date, '%Y-%m-%d') between '${startTime}' and '${endTime}' limit 10;`);
       database.query(sql.join(''), (err, result) => {
         if (err) {
           rej(err);
         }
-        res(result);
+        res(types.length === 1 ? [result] : result);
       });
     });
     const getList = () => new Promise(res => {
+      const typeSql = websites.map(website => `select * from Type where websiteId = ${website.id};`);
       const result = websites.map(website => {
         return {website, rankings: []};
       });
