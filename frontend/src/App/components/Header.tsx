@@ -63,7 +63,7 @@ const Header: React.FC<HeaderProps> = ({navStyle, changeNavStyle}) => {
         <span className="nav-logo-desc">世界尽收眼底</span>
         {
           isDefaultNavStyle && (
-            stars.map(starProps => <Star defaultValue unblinkColor={theme.backgroundColor} blinkColor={theme.color} {...starProps}></Star>)
+            stars.map((starProps, index) => <Star defaultValue unblinkColor={theme.backgroundColor} blinkColor={theme.color} key={index} {...starProps}></Star>)
           )
         }
       </div>

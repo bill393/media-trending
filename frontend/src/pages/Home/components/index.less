@@ -1,0 +1,113 @@
+.website {
+  margin-top: 10px;
+  .website-title {
+    display: flex;
+    align-items: baseline;
+    width: 50%;
+    margin-bottom: 5px;
+    font-size: 18px;
+    font-weight: 500;
+    .website-title-text {
+      margin-left: 30px;
+    }
+    .icon-wrap {
+      font-size: 45px;
+    }
+    .link-wrap {
+      margin-left: 10px;
+      font-size: 12px;
+      color: #2f6cff;
+    }
+  }
+  .website-rankings {
+    display: flex;
+    flex-wrap: wrap;
+    .website-ranking {
+      padding: 5px;
+    }
+  }
+}
+
+.website:first-child {
+  margin-top: 0;
+}
+
+.ranking {
+  border-radius: 4px;
+  background-color: #f5f5f5;
+  transition-property: box-shadow;
+  transition-duration: .3s;
+  .ranking-title {
+    padding: 15px;
+    margin-bottom: 0;
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 1px solid #e0e0e0;
+    .ranking-menu {
+      display: flex;
+      float: right;
+      font-size: 14px;
+      .ranking-menu-icon-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+      }
+      .ranking-menu-icon {
+        transition: all .3s;
+        cursor: pointer;
+      }
+      .ranking-menu-icon:hover {
+        font-size: 20px;
+      }
+    }
+  }
+  .ranking-list {
+    width: 450px;
+    padding: 10px;
+    color: #555;
+    .ranking-item {
+      display: flex;
+      margin-top: 10px;
+      .ranking-item-common {
+        color: #555;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        word-break: break-all;
+        overflow: hidden;
+      }
+      .ranking-item-top {
+        flex-shrink: 0;
+        width: 50px;
+        text-align: center;
+      }
+      .ranking-item-content {
+        flex-grow: 1;
+        justify-content: flex-start;
+      }
+      .ranking-item-box {
+        flex-shrink: 0;
+        flex-grow: 0;
+        width: 75px;
+        text-align: center;
+      }
+    }
+    .ranking-item:hover {
+      color: #1690ff;
+      .ranking-item-common {
+        color: #1690ff;
+      }
+    }
+    .ranking-item:first-child:hover {
+      color: #555;
+      .ranking-item-common {
+        color: #555;
+      }
+    }
+  }
+}
+
+.ranking:hover {
+  box-shadow: 0 1px 12px #c5c5c5;
+}

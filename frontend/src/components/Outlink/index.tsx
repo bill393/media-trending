@@ -9,15 +9,16 @@ export type OutlinkProps = {
   style?: {
     [key: string]: string | number
   },
+  className?: string,
   props?: {
     [key: string]: string
   },
   children?: React.ReactNode
 };
 
-const Outlink: React.FC<OutlinkProps> = ({style = {}, href, children, props = {}}) => {
+const Outlink: React.FC<OutlinkProps> = ({style = {}, href, className, children, props = {}}) => {
   return (
-    <a style={style} href={href} target="_blank" rel="noopener noreferrer" {...props}>
+    <a style={style} className={className} href={href} target="_blank" rel="noopener noreferrer" {...props}>
       {children}
     </a>
   );
